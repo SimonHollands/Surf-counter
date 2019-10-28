@@ -1,9 +1,12 @@
 from bs4 import BeautifulSoup
 import requests
+from Surf_counter.spot_urls import SpotUrls
+from datetime import datetime
+today=datetime.today().strftime('%Y%m%d')
 
 class ScrapeVideoLinks:
 
-    def __init__(self, camrewind_link,tofind_str='20191027T', occurance_n=3):
+    def __init__(self, camrewind_link,tofind_str=today+'T', occurance_n=3):
         self.main="https://camrewinds.cdn-surfline.com/live/wc-venicebeachclose.stream."
         self.camrewind_link=camrewind_link
         self.tofind_str =tofind_str
@@ -28,6 +31,8 @@ class ScrapeVideoLinks:
         self.end_of_link=self.tofind_str+self.nth(self.soup_str)+'.mp4'
         return self.main+self.end_of_link
 
-v=ScrapeVideoLinks("http://www.surfline.com/surfdata/video-rewind/video_rewind.cfm?id=146850&camAlias=wc-venicebeachclose&CFID=459565&CFTOKEN=85392160")
+
+url=SpotUrls.lookup['venice_beach']
+v=ScrapeVideoLinks(url)
 print(v.get_link())
 
