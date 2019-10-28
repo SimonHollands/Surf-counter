@@ -74,15 +74,14 @@ def api_all():
 
 #@app.route('/api/v1/breakwater/count', methods=['GET'])
 @app.route('/api/v1/breakwater/count')
-
 def api_surfercount():
-    #det.clear_data_dir()
+    det.clear_data_dir()
     #Find the video
-    #url=SpotUrls.lookup['venice_beach']
-    #v=ScrapeVideoLinks(url)
-    #link=v.get_link()
-    #det.pull_images(link)
-    #n_surfers=det.detection()
+    url=SpotUrls.lookup['venice_beach']
+    v=ScrapeVideoLinks(url)
+    link=v.get_link()
+    det.pull_images(link)
+    n_surfers=det.detection()
     n_surfers=det.detection()
     print ("THERE ARE N SURFERS ", n_surfers)
     return str(n_surfers)
@@ -127,4 +126,3 @@ def api_id():
     return jsonify(results)
 
 app.run(threaded=False,use_reloader=False)
-#thread_safe=False
