@@ -52,16 +52,16 @@ class Detect:
         return count
 
 det=Detect()
-
 #Find the video
 url=SpotUrls.lookup['venice_beach']
 url=SpotUrls.venice2
 v=ScrapeVideoLinks(url)
 link=v.get_link()
-print("Link:")
-print(link)
-print('ID')
-print(link[-18:-9])
+det.pull_images(link)
+n_surfers=det.detection()
+
+
+
 # print("link:")
 # print (link)
 # det.pull_images(link)

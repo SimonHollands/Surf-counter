@@ -1,9 +1,12 @@
 from bs4 import BeautifulSoup
 import requests
+from Surf_counter.spot_urls import SpotUrls
+from datetime import datetime
+today=datetime.today().strftime('%Y%m%d')
 
 class ScrapeVideoLinks:
 
-    def __init__(self, camrewind_link,tofind_str='20191027T', occurance_n=3):
+    def __init__(self, camrewind_link,tofind_str=today+'T', occurance_n=3):
         self.main="https://camrewinds.cdn-surfline.com/live/wc-venicebeachclose.stream."
         self.camrewind_link=camrewind_link
         self.tofind_str =tofind_str
@@ -29,7 +32,7 @@ class ScrapeVideoLinks:
         return self.main+self.end_of_link
 
 
-#url=SpotUrls.lookup['venice_beach']
-#v=ScrapeVideoLinks(url)
-#print(v.get_link())
+url=SpotUrls.lookup['venice_beach']
+v=ScrapeVideoLinks(url)
+print(v.get_link())
 
