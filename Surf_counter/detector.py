@@ -44,19 +44,20 @@ class Detect:
         print("Images")
         print (self.surfimages)
         print("Input image is "+ self.surfimages[0])
-        detection = self.detector.detectObjectsFromImage(input_image=self.surfimages[0], output_image_path=self.output_path,
+ 
+        detection_ = self.detector.detectObjectsFromImage(input_image=self.surfimages[0],output_image_path=self.output_path,
         minimum_percentage_probability=30)
 
         not_allowed=['airplane','bicycle']
         count=0
-        for x in detection:
+        for x in detection_:
             if x['name'] not in not_allowed:
                 count=count+1
 
         return count
 
 
-# det=Detect()
+det=Detect()
 # det.clear_data_dir()
 # #Find the video
 # url=SpotUrls.lookup['venice_beach']
@@ -65,9 +66,9 @@ class Detect:
 # print("LINK:")
 # print(link)
 # det.pull_images(link)
-# surfer_count=det.detection()
+surfer_count=det.detection()
 # # #surfer_count = 10
-# output=f'''There are currently {surfer_count} surfers at the Breakwater'''
+output=f'''There are currently {surfer_count} surfers at the Breakwater'''
 # print(output)
 
 # det=Detect()

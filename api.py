@@ -16,6 +16,22 @@ from Surf_counter.scrape_video_links import ScrapeVideoLinks
 app = flask.Flask(__name__)
 app.config["DEBUG"] = True
 
+
+#To put this back inside:
+#This error seem to be solved after i add K.clear_session() before return of method
+#  detectCustomObjectsFromImage in /imageai/Detection/__init__.py
+
+det=Detect()
+# det.clear_data_dir()
+# #Find the video
+# url=SpotUrls.lookup['venice_beach']
+# v=ScrapeVideoLinks(url)
+# link=v.get_link()
+# det.pull_images(link)
+# n_surfers=det.detection()
+# print("WTF!")
+# print(n_surfers)
+
 # Create some test data for our catalog in the form of a list of dictionaries.
 books = [
     {'id': 0,
@@ -56,18 +72,20 @@ def api_all():
 #     n_surfers=det.detection()
 #     return n_surfers
 
-@app.route('/api/v1/breakwater/count', methods=['GET'])
+#@app.route('/api/v1/breakwater/count', methods=['GET'])
+@app.route('/api/v1/breakwater/count')
+
 def api_surfercount():
-    det=Detect()
     #det.clear_data_dir()
     #Find the video
     #url=SpotUrls.lookup['venice_beach']
     #v=ScrapeVideoLinks(url)
     #link=v.get_link()
     #det.pull_images(link)
+    #n_surfers=det.detection()
     n_surfers=det.detection()
     print ("THERE ARE N SURFERS ", n_surfers)
-    return n_surfers
+    return str(n_surfers)
     #output=f'''There are currently {surfer_count} surfers at the Breakwater'''
     #return jsonify(n_surfers)
 
@@ -77,13 +95,13 @@ def api_surfercount():
     # output=f'''There are currently {surfer_count} surfers at the Breakwater'''
     # return jsonify(output)
 
-@app.route('/get_image')
-def get_image():
-    if request.args.get('type') == '1':
-       filename = 'data/frame3596.jpg'
-    else:
-       filename = 'frame3596.jpg'
-    return send_file(filename, mimetype='image/jpg')
+# @app.route('/get_image')
+# def get_image():
+#     if request.args.get('type') == '1':
+#        filename = 'data/frame3596.jpg'
+#     else:
+#        filename = 'frame3596.jpg'
+#     return send_file(filename, mimetype='image/jpg')
 
 @app.route('/api/v1/resources/books', methods=['GET'])
 def api_id():
@@ -108,4 +126,5 @@ def api_id():
     # Python dictionaries to the JSON format.
     return jsonify(results)
 
-app.run()
+app.run(threaded=False,use_reloader=False)
+#thread_safe=False
