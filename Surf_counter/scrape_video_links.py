@@ -28,6 +28,8 @@ class ScrapeVideoLinks:
         self.end_of_link=self.tofind_str+self.nth(self.soup_str)+'.mp4'
         return self.main+self.end_of_link
 
-#v=ScrapeVideoLinks("http://www.surfline.com/surfdata/video-rewind/video_rewind.cfm?id=146850&camAlias=wc-venicebeachclose&CFID=459565&CFTOKEN=85392160")
+
+#url=SpotUrls.lookup['venice_beach']
+#v=ScrapeVideoLinks(url)
 #print(v.get_link())
 

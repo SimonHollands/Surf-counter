@@ -2,8 +2,10 @@ from imageai.Detection import ObjectDetection
 from Surf_counter.read_video import ReadVidz
 from os import listdir
 from os.path import isfile, join
-import os, shutil
+import os, shutil 
 import imageai
+from Surf_counter.spot_urls import SpotUrls
+from scrape_video_links import ScrapeVideoLinks
 
 class Detect:
     model_path = "./models/yolo.h5"
@@ -50,10 +52,22 @@ class Detect:
         return count
 
 det=Detect()
-#det.pull_images("https://camrewinds.cdn-surfline.com/live/wc-venicebeachclose.stream.20191027T200823457.mp4")
-n_surfers=det.detection()
-print(f'''There are {n_surfers} surfers''')
 
+#Find the video
+url=SpotUrls.lookup['venice_beach']
+url=SpotUrls.venice2
+v=ScrapeVideoLinks(url)
+link=v.get_link()
+print("Link:")
+print(link)
+print('ID')
+print(link[-18:-9])
+# print("link:")
+# print (link)
+# det.pull_images(link)
+# n_surfers=det.detection()
+# print(f'''There are {n_surfers} surfers''')
+#  https://camrewinds.cdn-surfline.com/live/wc-venicebeachclose.stream.20191027T235900139.mp4
 # #1:08
 # https://camrewinds.cdn-surfline.com/live/wc-venicebeachclose.stream.20191027T200823457.mp4
 # #12:58

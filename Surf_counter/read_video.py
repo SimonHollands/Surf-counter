@@ -15,9 +15,6 @@ class ReadVidz:
 
     def pull_frames(self,how_many=10):
                 currentframe = 0
-                #import pytest
-                #pytest.set_trace()
-                print("Boo")
                 while(currentframe<=self.frame_count): 
                     
                     # reading from frame 
