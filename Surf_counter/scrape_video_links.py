@@ -4,6 +4,7 @@ from Surf_counter.spot_urls import SpotUrls
 from datetime import datetime
 today=datetime.today().strftime('%Y%m%d')
 
+
 class ScrapeVideoLinks:
 
     def __init__(self, camrewind_link,tofind_str=today+'T', occurance_n=3):
@@ -25,6 +26,8 @@ class ScrapeVideoLinks:
 
         third_start = second_end + Xstr[second_end:].find(self.tofind_str)
         third_end = third_start + len(self.tofind_str) 
+        print("Nth returning: ")
+        print(Xstr[third_end:third_end+9])
         return Xstr[third_end:third_end+9]
 
     def get_link(self):
@@ -32,7 +35,7 @@ class ScrapeVideoLinks:
         return self.main+self.end_of_link
 
 
-url=SpotUrls.lookup['venice_beach']
-v=ScrapeVideoLinks(url)
-print(v.get_link())
+# url=SpotUrls.lookup['venice_beach']
+# v=ScrapeVideoLinks(url)
+# print(v.get_link())
 

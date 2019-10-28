@@ -5,7 +5,7 @@ from os.path import isfile, join
 import os, shutil 
 import imageai
 from Surf_counter.spot_urls import SpotUrls
-from scrape_video_links import ScrapeVideoLinks
+from Surf_counter.scrape_video_links import ScrapeVideoLinks
 
 class Detect:
     model_path = "./models/yolo.h5"
@@ -25,8 +25,9 @@ class Detect:
         '''Pull images from video'''
         r=ReadVidz(link)
         r.pull_frames(5)
+        self.surfimages = ['./data/'+ f for f in listdir('./data') if f[0] !='.' and isfile(join('./data', f))]
 
-    def clear_data_dir():
+    def clear_data_dir(self):
         folder = './data'
         for the_file in os.listdir(folder):
             file_path = os.path.join(folder, the_file)
@@ -36,29 +37,48 @@ class Detect:
                 #elif os.path.isdir(file_path): shutil.rmtree(file_path)
             except Exception as e:
                 print(e)
+        self.surfimages = ['./data/'+ f for f in listdir('./data') if f[0] !='.' and isfile(join('./data', f))]
 
 
     def detection(self):
+        print("Images")
+        print (self.surfimages)
         print("Input image is "+ self.surfimages[0])
-        detection = self.detector.detectObjectsFromImage(input_image=self.surfimages[0], output_image_path=self.output_path,
+ 
+        detection_ = self.detector.detectObjectsFromImage(input_image=self.surfimages[0],output_image_path=self.output_path,
         minimum_percentage_probability=30)
 
         not_allowed=['airplane','bicycle']
         count=0
-        for x in detection:
+        for x in detection_:
             if x['name'] not in not_allowed:
                 count=count+1
 
         return count
 
+
 det=Detect()
-#Find the video
-url=SpotUrls.lookup['venice_beach']
-url=SpotUrls.venice2
-v=ScrapeVideoLinks(url)
-link=v.get_link()
-det.pull_images(link)
-n_surfers=det.detection()
+# det.clear_data_dir()
+# #Find the video
+# url=SpotUrls.lookup['venice_beach']
+# v=ScrapeVideoLinks(url)
+# link=v.get_link()
+# print("LINK:")
+# print(link)
+# det.pull_images(link)
+surfer_count=det.detection()
+# # #surfer_count = 10
+output=f'''There are currently {surfer_count} surfers at the Breakwater'''
+# print(output)
+
+# det=Detect()
+# #Find the video
+# url=SpotUrls.lookup['venice_beach']
+# url=SpotUrls.venice2
+# v=ScrapeVideoLinks(url)
+# link=v.get_link()
+# det.pull_images(link)
+# n_surfers=det.detection()
 
 
 
